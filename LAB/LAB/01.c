@@ -2,6 +2,47 @@
 #include<stdio.h>
 //init
 char name[] = { 'a','b','c','d' ,'\0'};
+void quick_sorting(int num[], int size, int low, int high)
+{
+	int i, j, temp;
+	int tmp;
+	int s;
+	s = size;
+
+	i = low;
+	j = high;
+	tmp = num[low];
+	if (i > j)  //如果下标i大于下标j，函数结束运行
+	{
+		return;
+	}
+
+	while (i != j)
+	{
+		while (num[j] >= tmp && j > i)
+		{
+			j--;
+		}
+
+		while (num[i] <= tmp && j > i)
+		{
+			i++;
+		}
+
+		if (j > i)
+		{
+			temp = num[j];
+			num[j] = num[i];
+			num[i] = temp;
+		}
+	}
+
+	num[low] = num[i];
+	num[i] = tmp;
+
+	quick_sorting(num,s, low, i - 1);
+	quick_sorting(num, s,i + 1, high);
+}
 int main()
 {
 	//EX1
@@ -55,5 +96,15 @@ int main()
 	int* ptr;
 	for (index = 0, ptr = ref + 5; index < 6; index++, ptr--)
 		printf(" % d % d\n", ref[index], *ptr);
+
+	//EX10
+	i = 0;
+	int t[8] = { 2,5,7,2,9,3,9,4 };
+	quick_sorting(t,8, 0, 8 - 1);
+	/*for (i = 0; i < 8; i++)
+	{
+		printf("%d", t[i]);
+	}*/
+	printf("%d", t[7]);
 	return 0;
 }
